@@ -20,10 +20,18 @@ return (
             Categoria
         </MenuButton>
         <MenuList borderRadius='5'  p='4' bg='#6d6875'>
-            <MenuItem>Pantalones</MenuItem>
+            <Link to={`/category/${"men's clothing"}`}>
+                <MenuItem>Pantalones</MenuItem>
+            </Link>
+            <Link to={`/category/${"women's clothing"}`}>
             <MenuItem>Camisas</MenuItem>
+            </Link>
+            <Link to={`/category/${"jewelery"}`}>
             <MenuItem>Zapatos</MenuItem>
+            </Link>
+            <Link to={`/category/${"electronics"}`}>
             <MenuItem>Reloj</MenuItem>
+            </Link>
         </MenuList>
     </Menu>
 

@@ -2,11 +2,16 @@ import React from 'react'
 import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button, Center } from '@chakra-ui/react'
 import ItemCount from './ItemCount'
 import { useParams } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 
 const ItemDetail = ({ product }) => {
     const { id } = useParams()
-
+    const { addToCart } = useCart();
     const filteredProduct = product.filter((product) => product.id == id)
+
+    const handleAddToCart = () =>{
+        addToCart(filteredProduct[0])
+    };
 
     return (
         <>
@@ -37,7 +42,7 @@ const ItemDetail = ({ product }) => {
                                             <Button variant='solid' colorScheme='blue'>
                                                 Buy now
                                             </Button>
-                                            <Button variant='ghost' colorScheme='blue'>
+                                            <Button onClick={handleAddToCart} variant='ghost' colorScheme='blue'>
                                                 Add to cart
                                             </Button>
                                         </ButtonGroup>

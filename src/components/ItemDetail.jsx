@@ -23,13 +23,13 @@ const ItemDetail = ({ product }) => {
                                 <Card maxW='sm'>
                                     <CardBody>
                                         <Stack mt='6' spacing='3'>
-                                            <Heading size='md'>{p.title}</Heading>
-                                            <img src={p.image} alt="imagen" />
+                                            <Heading size='md'>{p.nombre}</Heading>
+                                            <img src={p.imagen} alt="imagen" />
                                             <Text>
-                                                {p.description}
+                                                {p.descripcion}
                                             </Text>
                                             <Text color='blue.600' fontSize='2xl'>
-                                                ${p.price}
+                                                ${p.precio}
                                             </Text>
                                         </Stack>
                                     </CardBody>

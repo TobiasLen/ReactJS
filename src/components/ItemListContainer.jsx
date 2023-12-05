@@ -1,27 +1,38 @@
-import React, { useEffect, useState } from 'react'
-import ItemList from './ItemList'
-import { useParams } from 'react-router-dom'
+import ItemList from './ItemList';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 
 const ItemListContainer = () => {
-    const [product, setProduct] = useState([])
-    const { category } = useParams()
-
-    const getProducts = async () => {
-        const response = await fetch("https://fakestoreapi.com/products")
-        const data = await response.json()
-        return data
-    }
+    const [productos, setProductos] = useState([]);
+    const { category } = useParams();
 
     useEffect(() => {
-        getProducts().then((products) => setProduct(products))
-    }, [])
+        const fetchProducts = async () => {
+            try {
+                const db = getFirestore();
+                const itemsCollection = collection(db, 'deporte');
 
-    const filteredProducts = product.filter((product) => product.category === category)
+                let productsQuery = query(itemsCollection);
+                if (category) {
+                    productsQuery = query(itemsCollection, where('categoria', '==', category));
+                }
 
+                const snapshot = await getDocs(productsQuery);
+                const docs = snapshot.docs.map((doc) => doc.data());
+                setProductos(docs);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        console.log(productos);
+
+        fetchProducts();
+    }, [category]);
     return (
-        <>
-            <ItemList product={filteredProducts} />
-        </>
-    )
-}
-export default ItemListContainer
+        <ItemList product={productos} />
+    );
+};
+
+export default ItemListContainer;

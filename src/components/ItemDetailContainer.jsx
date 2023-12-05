@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import ItemDetail from './ItemDetail'
-
+import { collection, getDocs, getFirestore } from 'firebase/firestore'
 
 const ItemDetailContainer = () => {
 
-    const getProducts = async () => {
-        const response = await fetch("https://fakestoreapi.com/products")
-        const data = await response.json()
 
-        return data
-    }
-
-    const [product, setProduct] = useState([])
-
-    console.log(product)
+    const [productos, setProductos] = useState([])
 
     useEffect(() => {
-        getProducts().then((p) => setProduct(p))
-    }, [])
+        const db= getFirestore()
+        const itemsCollection = collection(db, "deporte")
+        getDocs(itemsCollection).then((snapshot) => {
+            const docs = snapshot.docs.map((doc) => doc.data())
+            setProductos(docs)
+        })
+    })
+
 
     return (
         <>
-            <ItemDetail product={product} />
+            <ItemDetail product={productos} />
         </>
     )
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import Item from './Item'
 
 const ItemList = ({ product }) => {
+    console.log(product);
     return (
         <div>
             {
@@ -10,10 +11,10 @@ const ItemList = ({ product }) => {
                         <>
                             <Item
                                 id={p.id}
-                                title={p.title}
-                                description={p.description}
-                                price={p.price}
-                                image={p.image}
+                                nombre={p.nombre}
+                                descripcion={p.descripcion}
+                                precio={p.precio}
+                                imagen={p.imagen}
                             />
                         </>
                     )
